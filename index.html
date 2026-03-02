@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHANTOM XI — Dress Registration</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page-wrap">
+    <header class="header">
+      <div class="logo-wrap">
+        <img src="assets/c__Users_Tecdune-54_AppData_Roaming_Cursor_User_workspaceStorage_7252b4aa1b40b677806594beb367944a_images_image-8e53793e-9f75-47ed-a931-50802c506692.png" alt="PHANTOM XI" class="logo" onerror="this.src='assets/logo.png'; this.onerror=function(){ this.style.display='none'; this.nextElementSibling.classList.add('show'); }">
+        <div class="logo-fallback">
+          <span class="logo-text">PHANTOM XI</span>
+          <span class="logo-sub">Cricket Team</span>
+        </div>
+      </div>
+      <h1 class="title">Team Dress Registration</h1>
+      <p class="tagline">Team T-shirt, Lower & Cap. Interested players may register below.</p>
+    </header>
+
+    <main class="main">
+      <form id="kit-form" class="form" novalidate>
+        <div class="field">
+          <label for="player-name">Player name <span class="req">*</span></label>
+          <input type="text" id="player-name" name="playerName" placeholder="Full name" required autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label>Your choice <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="choice" value="Tshirt Only" required>
+              <span class="radio-text">Tshirt Only</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="choice" value="Tshirt + Lower">
+              <span class="radio-text">Tshirt + Lower</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="choice" value="Tshirt + Lower + Cap">
+              <span class="radio-text">Tshirt + Lower + Cap</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="choice" value="Tshirt + Cap only">
+              <span class="radio-text">Tshirt + Cap only</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tshirt-size">Tshirt Size <span class="req">*</span></label>
+          <select id="tshirt-size" name="tshirtSize" required>
+            <option value="">Select size</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="2XL">2XL</option>
+            <option value="3XL">3XL</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="name-on-tshirt">Name on Tshirt <span class="req">*</span></label>
+          <input type="text" id="name-on-tshirt" name="nameOnTshirt" placeholder="As to be printed" required>
+        </div>
+
+        <div class="field">
+          <label for="number-on-tshirt">Number on Tshirt <span class="req">*</span></label>
+          <input type="text" id="number-on-tshirt" name="numberOnTshirt" placeholder="Any number" inputmode="numeric" maxlength="10" pattern="[0-9]+" required>
+        </div>
+
+        <div class="field">
+          <label>Sleeve Length <span class="req">*</span></label>
+          <div class="radio-group inline">
+            <label class="radio-label">
+              <input type="radio" name="sleeveLength" value="Half" required>
+              <span class="radio-text">Half</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="sleeveLength" value="Full">
+              <span class="radio-text">Full</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-submit" id="submit-btn">Submit</button>
+          <button type="reset" class="btn btn-reset">Clear</button>
+        </div>
+
+        <div id="form-message" class="form-message" aria-live="polite"></div>
+      </form>
+    </main>
+
+    <footer class="footer">
+      <p>PHANTOM XI</p>
+    </footer>
+  </div>
+
+  <iframe name="phantom-submit-frame" id="phantom-submit-frame" class="submit-frame" title="Form submission"></iframe>
+
+  <div id="success-popup" class="popup-overlay" aria-hidden="true">
+    <div class="popup-box">
+      <p class="popup-message">Your PHANTOM XI new dress registration has been successfully saved. We will get in touch with you once the T-shirt is printed.</p>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
