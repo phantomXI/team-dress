@@ -8,6 +8,22 @@
   const form = document.getElementById('kit-form');
   const submitBtn = document.getElementById('submit-btn');
   const messageEl = document.getElementById('form-message');
+  const fieldLowerSize = document.getElementById('field-lower-size');
+  const lowerSizeSelect = document.getElementById('lower-size');
+
+  function choiceNeedsLower(choice) {
+    return choice === 'Tshirt + Lower' || choice === 'Tshirt + Lower + Cap';
+  }
+
+  function toggleLowerSizeField() {
+    var choice = (form.querySelector('input[name="choice"]:checked') || {}).value || '';
+    var show = choiceNeedsLower(choice);
+    if (fieldLowerSize) fieldLowerSize.style.display = show ? '' : 'none';
+    if (lowerSizeSelect) {
+      lowerSizeSelect.required = show;
+      if (!show) lowerSizeSelect.value = '';
+    }
+  }
 
   function showMessage(text, type) {
     messageEl.textContent = text;
@@ -23,10 +39,18 @@
   function getFormData() {
     var fd = new FormData(form);
     var numRaw = (fd.get('numberOnTshirt') || '').trim();
+    var mobileEl = document.getElementById('mobile-number');
+    var mobileRaw = (mobileEl ? mobileEl.value : fd.get('mobileNumber') || '').trim().replace(/\D/g, '');
+    if (mobileRaw.length === 12 && mobileRaw.indexOf('91') === 0) mobileRaw = mobileRaw.slice(2);
+    if (mobileRaw.length === 11 && mobileRaw[0] === '0') mobileRaw = mobileRaw.slice(1);
+    var choice = fd.get('choice') || '';
+    var lowerVal = choiceNeedsLower(choice) ? (fd.get('lowerSize') || '') : 'Lower not selected';
     return {
       playerName: (fd.get('playerName') || '').trim(),
-      choice: fd.get('choice') || '',
+      mobileNumber: mobileRaw,
+      choice: choice,
       tshirtSize: fd.get('tshirtSize') || '',
+      lowerSize: lowerVal,
       nameOnTshirt: (fd.get('nameOnTshirt') || '').trim(),
       numberOnTshirt: numRaw,
       sleeveLength: fd.get('sleeveLength') || ''
@@ -35,8 +59,11 @@
 
   function validate(data) {
     if (!data.playerName) return 'Please enter player name.';
+    if (!data.mobileNumber) return 'Please enter Mobile number.';
+    if (!/^[6-9][0-9]{9}$/.test(data.mobileNumber)) return 'Please enter a valid 10-digit Indian mobile number (starting with 6, 7, 8 or 9).';
     if (!data.choice) return 'Please select your choice (Tshirt/Lower/Cap).';
     if (!data.tshirtSize) return 'Please select Tshirt size.';
+    if (choiceNeedsLower(data.choice) && !data.lowerSize) return 'Please select Lower size.';
     if (!data.nameOnTshirt) return 'Please enter name on Tshirt.';
     if (!data.numberOnTshirt) return 'Please enter number on Tshirt.';
     if (!data.sleeveLength) return 'Please select sleeve length.';
@@ -50,7 +77,7 @@
     f.target = 'phantom-submit-frame';
     f.style.display = 'none';
 
-    var keys = ['playerName', 'choice', 'tshirtSize', 'nameOnTshirt', 'numberOnTshirt', 'sleeveLength'];
+    var keys = ['playerName', 'mobileNumber', 'choice', 'tshirtSize', 'lowerSize', 'nameOnTshirt', 'numberOnTshirt', 'sleeveLength'];
     keys.forEach(function (key) {
       var input = document.createElement('input');
       input.type = 'hidden';
@@ -112,5 +139,11 @@
 
   form.addEventListener('reset', function () {
     hideMessage();
+    toggleLowerSizeField();
   });
+
+  form.querySelectorAll('input[name="choice"]').forEach(function (radio) {
+    radio.addEventListener('change', toggleLowerSizeField);
+  });
+  toggleLowerSizeField();
 })();

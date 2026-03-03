@@ -27,11 +27,18 @@ var FORM_PAGE_URL = 'https://your-form-page-url.com/'; // Optional: your form UR
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var params = e.parameter;
-
+    var params = e.parameter || {};
+    // If mobileNumber missing from params (e.g. old deployment or encoding), try parsing postData
+    if (e.postData && e.postData.contents && (params.mobileNumber === undefined || params.mobileNumber === '')) {
+      var body = e.postData.contents;
+      var match = body.match(/mobileNumber=([^&]*)/);
+      if (match) params.mobileNumber = decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
     var playerName = params.playerName || '';
+    var mobileNumber = params.mobileNumber || '';
     var choice = params.choice || '';
     var tshirtSize = params.tshirtSize || '';
+    var lowerSize = params.lowerSize || '';
     var nameOnTshirt = params.nameOnTshirt || '';
     var numberOnTshirt = params.numberOnTshirt || '';
     var sleeveLength = params.sleeveLength || '';
@@ -42,24 +49,29 @@ function doPost(e) {
       sheet.appendRow([
         'Timestamp',
         'Player Name',
+        'Mobile Number',
         'Your Choice',
         'Tshirt Size',
         'Name on Tshirt',
         'Number on Tshirt',
-        'Sleeve Length'
+        'Sleeve Length',
+        'Lower Size(Length-Waist)'
       ]);
     }
 
     // Use leading apostrophe so Sheet stores as text and keeps 001, 04 etc (not 1, 4)
     var numberAsText = (numberOnTshirt === '') ? '' : "'" + numberOnTshirt;
+    var mobileAsText = (mobileNumber === '') ? '' : "'" + mobileNumber;
     sheet.appendRow([
       new Date(),
       playerName,
+      mobileAsText,
       choice,
       tshirtSize,
       nameOnTshirt,
       numberAsText,
-      sleeveLength
+      sleeveLength,
+      lowerSize
     ]);
 
     return createThankYouPage(true);

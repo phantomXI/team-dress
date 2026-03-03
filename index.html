@@ -30,6 +30,14 @@
           <input type="text" id="player-name" name="playerName" placeholder="Full name" required autocomplete="name">
         </div>
 
+        <div class="field field-mobile">
+          <label for="mobile-number">Mobile Number <span class="req">*</span></label>
+          <div class="input-wrap-mobile">
+            <span class="mobile-prefix" aria-hidden="true">+91</span>
+            <input type="tel" id="mobile-number" name="mobileNumber" placeholder="9876543210" inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" required autocomplete="tel">
+          </div>
+        </div>
+
         <div class="field">
           <label>Your choice <span class="req">*</span></label>
           <div class="radio-group">
@@ -56,12 +64,25 @@
           <label for="tshirt-size">Tshirt Size <span class="req">*</span></label>
           <select id="tshirt-size" name="tshirtSize" required>
             <option value="">Select size</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="2XL">2XL</option>
-            <option value="3XL">3XL</option>
+            <option value="S_36">S(36)</option>
+            <option value="M_38">M(38)</option>
+            <option value="L_40">L(40)</option>
+            <option value="XL_42">XL(42)</option>
+            <option value="2XL_44">2XL(44)</option>
+            <option value="3XL_46">3XL(46)</option>
+            <option value="4XL_48">4XL(48)</option>
+          </select>
+        </div>
+        <div class="field" id="field-lower-size" style="display: none;">
+          <label for="lower-size">Lower Size <span class="req">*</span></label>
+          <select id="lower-size" name="lowerSize">
+            <option value="">Select size (Length - Waist)</option>
+            <option value="S_38-30">S (38-30)</option>
+            <option value="M_39-32">M (39-32)</option>
+            <option value="L_40-34">L (40-34)</option>
+            <option value="XL_41-36">XL (41-36)</option>
+            <option value="2XL_42-38">2XL (42-38)</option>
+            <option value="3XL_43-40">3XL(43-40)</option>
           </select>
         </div>
 

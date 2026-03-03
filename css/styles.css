@@ -171,6 +171,7 @@ label {
 
 input[type="text"],
 input[type="number"],
+input[type="tel"],
 select {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -187,6 +188,48 @@ select {
 
 input::placeholder {
   color: var(--text-muted);
+}
+
+/* Mobile number: +91 prefix + input as one field */
+.field-mobile .input-wrap-mobile {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.field-mobile .input-wrap-mobile:focus-within {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.2), 0 0 20px var(--glow-blue);
+}
+
+.field-mobile .mobile-prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.field-mobile #mobile-number {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: transparent;
+  padding-left: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.field-mobile #mobile-number:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 input:focus,
